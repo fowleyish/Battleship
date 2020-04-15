@@ -6,7 +6,7 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
