@@ -42,6 +42,7 @@ namespace Battleship
         public void ControlTurns()
         {
             Player currentPlayer = playerOne;
+            Player otherPlayer = playerTwo;
             while (playerOne.shipCount > 0 && playerTwo.shipCount > 0)
             {
                 Console.WriteLine(currentPlayer.name.ToUpper() + "'s Turn");
@@ -60,20 +61,21 @@ namespace Battleship
                             Console.ReadLine();
                             selection = DisplayMenu();
                             break;
-                        case "3":
-                            currentPlayer.Target();
-                            break;
                     }
                 }
+                currentPlayer.Target(currentPlayer, otherPlayer);
                 if (currentPlayer == playerOne)
                 {
                     currentPlayer = playerTwo;
+                    otherPlayer = playerOne;
                 }
                 else
                 {
                     currentPlayer = playerOne;
+                    otherPlayer = playerTwo;
                 }
             }
+            AnnounceWinner();
         }
 
         public string DisplayMenu()
@@ -81,7 +83,7 @@ namespace Battleship
             Console.WriteLine("Select a number from the following choices: ");
             Console.WriteLine("1. View my board");
             Console.WriteLine("2. View enemy reference board");
-            Console.WriteLine("3. View enemy reference board");
+            Console.WriteLine("3. Attack a coordinate");
             int choice = int.Parse(Console.ReadLine());
             if (choice < 1 || choice > 3)
             {
@@ -92,5 +94,21 @@ namespace Battleship
             return choice.ToString();
         }
 
+        public void AnnounceWinner()
+        {
+            if (playerOne.shipCount > playerTwo.shipCount)
+            {
+                Console.WriteLine("{0} WINS!!", playerOne.name);
+            }
+            else
+            {
+                Console.WriteLine("{0} WINS!!", playerTwo.name);
+            }
+            Console.Write("Enter 1 to play again or anything else to close the application: ");
+            string playAgain = Console.ReadLine();
+            if (playAgain == "1") {
+                new Game();
+            }
+        }
     }
 }
