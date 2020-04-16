@@ -8,15 +8,18 @@ namespace Battleship
     {
         // Member vars
         public string[,] board;
+        public string name;
 
         // Constructor
-        public Board()
+        public Board(string name)
         {
             board = new string[20, 20];
+            this.name = name;
         }
 
-        public void Print()
+        public void Print(Player player, Board boardName)
         {
+            Console.WriteLine("{0}'s {1}:", player.name, boardName.name);
             for (int row = 0; row < board.GetLength(0); row++)
             {
                 for (int col = 0; col < board.GetLength(1); col++)

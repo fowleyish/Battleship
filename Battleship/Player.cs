@@ -27,8 +27,8 @@ namespace Battleship
             aircraftCarrier = new Ship(5, "aircraft carrier");
             ships = new Ship[] { destroyer, submarine, battleship, aircraftCarrier};
             shipCount = 4;
-            field = new Board();
-            referenceBoard = new Board();
+            field = new Board("battle field");
+            referenceBoard = new Board("enemy reference board");
             field.SetBlankBoard(field.board);
             referenceBoard.SetBlankBoard(referenceBoard.board);
         }
@@ -47,20 +47,20 @@ namespace Battleship
 
         }
 
-        public void PlaceShips()
+        public void PlaceShips(Player player)
         {
             foreach (Ship ship in ships)
             {
                 Console.WriteLine("{0} SETUP", name.ToUpper());
                 Console.WriteLine("Where will you place your {0}?", ship.name.ToUpper());
-                field.Print();
+                field.Print(player, player.field);
                 Console.Write("Row: ");
                 int row = int.Parse(Console.ReadLine());
                 Console.Write("Column: ");
                 int col = int.Parse(Console.ReadLine());
                 for (int i = 0; i < ship.size; i++)
                 {
-                    field.board[col + i, row] = ship.name[0].ToString().ToUpper();
+                    field.board[col - 1 + i, row - 1] = ship.name[0].ToString().ToUpper();
                 }
                 Console.Clear();
             }
