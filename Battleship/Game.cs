@@ -20,6 +20,7 @@ namespace Battleship
 
         public void Setup()
         {
+            Console.Clear();
             PlayerBoardSetup(playerOne);
             PlayerBoardSetup(playerTwo);
             ControlTurns();
@@ -84,10 +85,18 @@ namespace Battleship
             Console.WriteLine("1. View my board");
             Console.WriteLine("2. View enemy reference board");
             Console.WriteLine("3. Attack a coordinate");
-            int choice = int.Parse(Console.ReadLine());
-            if (choice < 1 || choice > 3)
+            bool legitTarget = int.TryParse(Console.ReadLine(), out int choice);
+            if (legitTarget == true)
             {
-                Console.WriteLine("Please enter a valid menu option number");
+                if (choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Please enter a valid menu option number");
+                    DisplayMenu();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid number between 1 and 3");
                 DisplayMenu();
             }
             Console.Clear();
